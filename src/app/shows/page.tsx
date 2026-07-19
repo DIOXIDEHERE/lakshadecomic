@@ -29,7 +29,7 @@ export default async function Shows() {
       
       {shows.length === 0 ? (
         <div className="glass-panel" style={{ textAlign: "center", color: "var(--color-text-muted)" }}>
-          <p>No upcoming shows at the moment. Stay tuned!</p>
+          <p>Cooking the next set. Check back soon.</p>
         </div>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
