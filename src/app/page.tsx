@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Gallery from "@/components/Gallery";
 
 export default function Home() {
   const [typedText, setTypedText] = useState("");
@@ -80,6 +81,11 @@ export default function Home() {
           </svg>
           Watch on YouTube
         </a>
+      </div>
+
+      {/* Animated Photo Gallery */}
+      <div style={{ opacity: step >= 4 ? 1 : 0, transition: "opacity 1s ease", width: "100%", display: "flex", justifyContent: "center" }}>
+        <Gallery />
       </div>
     </div>
   );
