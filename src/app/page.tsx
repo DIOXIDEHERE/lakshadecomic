@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div className="container animate-fade-in" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "60vh", textAlign: "center" }}>
       <h1 style={{ fontSize: "4rem", marginBottom: "1rem", lineHeight: 1.1 }}>
-        Hi, I'm <span style={{ color: "var(--color-primary)" }}>Lak Shade</span>
+        Ab aa hi gaye ho toh...
       </h1>
       
       <p style={{ fontSize: "1.5rem", color: "var(--color-text-muted)", maxWidth: "800px", margin: "0 auto 3rem auto", lineHeight: 1.6 }}>
