@@ -25,9 +25,12 @@ export default function DashboardClient({ initialShows }: { initialShows: any[] 
         setShows(newShows);
       } else if (res.status === 401) {
         router.push("/admin/login");
+      } else {
+        alert("Failed to save. Make sure your Vercel KV Database is linked and Vercel has finished deploying!");
       }
     } catch (err) {
       console.error(err);
+      alert("Failed to connect to the database.");
     } finally {
       setLoading(false);
     }
