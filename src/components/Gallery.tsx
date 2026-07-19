@@ -1,40 +1,39 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import { motion } from "framer-motion";
 
 const images = [
-  { src: "/1.jpg", alt: "Stand-up comedy performance 1", delay: "0s" },
-  { src: "/2.jpg", alt: "Stand-up comedy performance 2", delay: "0.2s" },
-  { src: "/3.jpg", alt: "Stand-up comedy performance 3", delay: "0.4s" },
-  { src: "/4.jpg", alt: "Stand-up comedy performance 4", delay: "0.6s" },
+  { src: "/1.jpg", alt: "Stand-up comedy performance 1", rotation: -1.5, floatDelay: 0 },
+  { src: "/2.jpg", alt: "Stand-up comedy performance 2", rotation: 1.2, floatDelay: 0.5 },
+  { src: "/3.jpg", alt: "Stand-up comedy performance 3", rotation: -0.8, floatDelay: 1 },
+  { src: "/4.jpg", alt: "Stand-up comedy performance 4", rotation: 1.8, floatDelay: 1.5 },
 ];
 
-export default function Gallery() {
-  const [isVisible, setIsVisible] = useState(false);
-  const galleryRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (galleryRef.current) {
-      observer.observe(galleryRef.current);
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
     }
+  }
+};
 
-    return () => observer.disconnect();
-  }, []);
+const itemVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: [0.16, 1, 0.3, 1] as const
+    }
+  }
+};
 
+export default function Gallery() {
   return (
     <div 
-      ref={galleryRef}
       style={{
         marginTop: "4rem",
         width: "100%",
@@ -42,70 +41,92 @@ export default function Gallery() {
         padding: "0 1rem"
       }}
     >
-      <h2 style={{ 
-        fontSize: "2rem", 
-        marginBottom: "2rem", 
-        textAlign: "center",
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translateY(0)" : "translateY(20px)",
-        transition: "all 0.8s ease-out"
-      }}>
+      <motion.h2 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }}
+        style={{ 
+          fontSize: "2rem", 
+          marginBottom: "2rem", 
+          textAlign: "center"
+        }}
+      >
         In Action
-      </h2>
+      </motion.h2>
       
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-        gap: "1.5rem",
-      }}>
+      <motion.div 
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+          gap: "2rem",
+          paddingBottom: "2rem"
+        }}
+      >
         {images.map((img, index) => (
-          <div 
+          <motion.div 
             key={index}
-            style={{
-              position: "relative",
-              aspectRatio: "3/4",
-              borderRadius: "1rem",
-              overflow: "hidden",
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible ? "translateY(0)" : "translateY(40px)",
-              transition: `all 0.8s ease-out ${img.delay}`,
-              boxShadow: "0 10px 30px rgba(0,0,0,0.3)"
-            }}
+            variants={itemVariants}
+            style={{ perspective: 1000 }}
           >
-            <div 
+            <motion.div
+              animate={{
+                y: ["-3px", "3px", "-3px"],
+              }}
+              transition={{
+                duration: 4,
+                ease: "easeInOut",
+                repeat: Infinity,
+                delay: img.floatDelay
+              }}
               style={{
                 width: "100%",
                 height: "100%",
-                backgroundColor: "var(--color-surface)", // Placeholder color
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "var(--color-text-muted)"
               }}
             >
-              <img 
-                src={img.src} 
-                alt={img.alt}
+              <motion.div
+                initial={{ rotate: img.rotation, scale: 1, filter: "brightness(1)" }}
+                whileHover={{ 
+                  rotate: 0, 
+                  scale: 1.05, 
+                  filter: "brightness(1.05)",
+                  boxShadow: "0 15px 35px rgba(59, 130, 246, 0.3)",
+                  transition: { duration: 0.4, ease: "easeOut" }
+                }}
                 style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  position: "absolute",
-                  top: 0,
-                  left: 0
+                  position: "relative",
+                  aspectRatio: "3/4",
+                  borderRadius: "1rem",
+                  overflow: "hidden",
+                  boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+                  transformOrigin: "center center",
+                  backgroundColor: "var(--color-surface)",
                 }}
-                onError={(e) => {
-                  // Fallback if image not found yet
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
-              <span style={{ fontSize: "0.875rem", padding: "1rem", textAlign: "center" }}>
-                Waiting for {img.src}
-              </span>
-            </div>
-          </div>
+              >
+                <img 
+                  src={img.src} 
+                  alt={img.alt}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    position: "absolute",
+                    top: 0,
+                    left: 0
+                  }}
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+              </motion.div>
+            </motion.div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 }

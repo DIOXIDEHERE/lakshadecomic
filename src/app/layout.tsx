@@ -18,7 +18,7 @@ export default function RootLayout({
       <body>
         <nav style={{ padding: "1.5rem 0", borderBottom: "1px solid var(--color-border)" }}>
           <div className="container" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <Link href="/" style={{ fontSize: "1.5rem", fontWeight: "bold", letterSpacing: "-0.05em" }}>
+            <Link href="/" className="logo-hover" style={{ fontSize: "1.5rem", fontWeight: "bold", letterSpacing: "-0.05em", display: "inline-block" }}>
               <span style={{ color: "var(--color-primary)" }}>Lak</span> Shade
             </Link>
             <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
