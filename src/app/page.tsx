@@ -1,18 +1,59 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 export default function Home() {
+  const [typedText, setTypedText] = useState("");
+  const [step, setStep] = useState(0);
+  
+  const fullText = "Ab aa hi gaye ho toh...";
+
+  useEffect(() => {
+    let i = 0;
+    const typingInterval = setInterval(() => {
+      if (i < fullText.length) {
+        setTypedText(fullText.substring(0, i + 1));
+        i++;
+      } else {
+        clearInterval(typingInterval);
+        setTimeout(() => setStep(1), 500);
+      }
+    }, 100);
+
+    return () => clearInterval(typingInterval);
+  }, [fullText]);
+
+  useEffect(() => {
+    if (step === 1) {
+      setTimeout(() => setStep(2), 1500);
+    } else if (step === 2) {
+      setTimeout(() => setStep(3), 1500);
+    } else if (step === 3) {
+      setTimeout(() => setStep(4), 1500);
+    }
+  }, [step]);
+
   return (
-    <div className="container animate-fade-in" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "60vh", textAlign: "center" }}>
-      <h1 style={{ fontSize: "4rem", marginBottom: "1rem", lineHeight: 1.1 }}>
-        Ab aa hi gaye ho toh...
+    <div className="container" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "60vh", textAlign: "center" }}>
+      <h1 style={{ fontSize: "4rem", marginBottom: "1rem", lineHeight: 1.1, minHeight: "4.4rem" }}>
+        {typedText}
+        {step === 0 && <span className="cursor-blink">|</span>}
       </h1>
       
-      <p style={{ fontSize: "1.5rem", color: "var(--color-text-muted)", maxWidth: "800px", margin: "0 auto 3rem auto", lineHeight: 1.6 }}>
-        Ye website mummy ko mat dikhana. <br/>
-        Main sirf mic pakadta hoon... baaki bhagwan bharose.
-      </p>
+      <div style={{ fontSize: "1.5rem", color: "var(--color-text-muted)", maxWidth: "800px", margin: "0 auto 3rem auto", lineHeight: 1.6, minHeight: "8rem" }}>
+        <div style={{ opacity: step >= 1 ? 1 : 0, transition: "opacity 1s ease", marginBottom: "0.5rem" }}>
+          Ye website mummy ko mat dikhana.
+        </div>
+        <div style={{ opacity: step >= 2 ? 1 : 0, transition: "opacity 1s ease", marginBottom: "0.5rem" }}>
+          Aur haan...
+        </div>
+        <div style={{ opacity: step >= 3 ? 1 : 0, transition: "opacity 1s ease" }}>
+          Please expectations ghar pe rakh ke aana.
+        </div>
+      </div>
 
-      <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap", justifyContent: "center" }}>
+      <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap", justifyContent: "center", opacity: step >= 4 ? 1 : 0, transition: "opacity 1s ease" }}>
         <a 
           href="https://www.instagram.com/lak.shade/" 
           target="_blank" 
