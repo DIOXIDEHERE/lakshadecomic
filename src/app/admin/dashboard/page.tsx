@@ -1,17 +1,17 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import fs from "fs/promises";
-import path from "path";
+import { Redis } from '@upstash/redis';
 import DashboardClient from "./DashboardClient";
 
 export const dynamic = 'force-dynamic';
 
 async function getShows() {
-  const dbPath = path.join(process.cwd(), 'data', 'db.json');
   try {
-    const data = await fs.readFile(dbPath, 'utf-8');
-    return JSON.parse(data).shows;
+    const redis = Redis.fromEnv();
+    const shows = await redis.get('shows');
+    return Array.isArray(shows) ? shows : [];
   } catch (e) {
+    console.error("Failed to fetch shows from Redis:", e);
     return [];
   }
 }

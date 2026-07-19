@@ -1,16 +1,16 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import fs from 'fs/promises';
-import path from 'path';
+import { Redis } from '@upstash/redis';
 
-const dbPath = path.join(process.cwd(), 'data', 'db.json');
+// Initialize Redis. It automatically picks up UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN.
+const redis = Redis.fromEnv();
 
 export async function GET() {
   try {
-    const data = await fs.readFile(dbPath, 'utf-8');
-    const db = JSON.parse(data);
-    return NextResponse.json(db.shows);
+    const shows = await redis.get('shows');
+    return NextResponse.json(shows || []);
   } catch (error) {
+    console.error("Failed to read from Redis:", error);
     return NextResponse.json({ error: 'Failed to read data' }, { status: 500 });
   }
 }
@@ -26,20 +26,12 @@ export async function POST(request: Request) {
   try {
     const shows = await request.json();
     
-    // Read existing to keep structure safe, overwrite shows array
-    let db = { shows: [] };
-    try {
-      const data = await fs.readFile(dbPath, 'utf-8');
-      db = JSON.parse(data);
-    } catch (e) {
-      // ignore
-    }
+    // Save to Redis
+    await redis.set('shows', shows);
 
-    db.shows = shows;
-
-    await fs.writeFile(dbPath, JSON.stringify(db, null, 2), 'utf-8');
     return NextResponse.json({ success: true });
   } catch (error) {
+    console.error("Failed to write to Redis:", error);
     return NextResponse.json({ error: 'Failed to save data' }, { status: 500 });
   }
 }
