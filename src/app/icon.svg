@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Blue Diamond Background -->
+  <rect x="18" y="18" width="64" height="64" rx="14" transform="rotate(45, 50, 50)" fill="#0070f3" />
+  
+  <!-- Microphone Icon (white) -->
+  <!-- Mic body (pill shape) -->
+  <rect x="40" y="24" width="20" height="32" rx="10" fill="white" />
+  
+  <!-- Stand/Arc part -->
+  <g stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Arc around mic -->
+    <path d="M 30 46 v 4 a 20 20 0 0 0 40 0 v -4" />
+    <!-- Vertical stand -->
+    <path d="M 50 70 v 12" />
+    <!-- Base plate -->
+    <path d="M 38 82 h 24" />
+  </g>
+</svg>
