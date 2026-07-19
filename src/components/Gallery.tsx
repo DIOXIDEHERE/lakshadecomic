@@ -99,7 +99,7 @@ export default function Gallery() {
                 }}
                 style={{
                   position: "relative",
-                  aspectRatio: "3/4",
+                  aspectRatio: "4/5",
                   borderRadius: "1rem",
                   overflow: "hidden",
                   boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
@@ -114,6 +114,7 @@ export default function Gallery() {
                     width: "100%",
                     height: "100%",
                     objectFit: "cover",
+                    objectPosition: "top",
                     position: "absolute",
                     top: 0,
                     left: 0
