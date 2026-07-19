@@ -23,6 +23,7 @@ export default function RootLayout({
             <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
               <Link href="/" className="btn-outline" style={{ padding: "0.5rem 1rem", border: "none" }}>Home</Link>
               <Link href="/shows" className="btn-outline" style={{ padding: "0.5rem 1rem", border: "none" }}>Upcoming Shows</Link>
+              <a href="https://www.instagram.com/lak.shade/" target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ padding: "0.5rem 1rem", border: "none" }}>Social</a>
             </div>
           </div>
         </nav>
