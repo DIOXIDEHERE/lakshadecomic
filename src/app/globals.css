@@ -164,7 +164,7 @@ a {
 .logo-hover:hover {
   filter: brightness(1.2);
   transform: scale(1.02);
-  text-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+  text-shadow: 0 0 25px rgba(59, 130, 246, 0.9);
 }
 
 /* Forms */
