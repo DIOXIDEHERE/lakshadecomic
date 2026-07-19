@@ -17,20 +17,20 @@ export default function Home() {
         i++;
       } else {
         clearInterval(typingInterval);
-        setTimeout(() => setStep(1), 500);
+        setTimeout(() => setStep(1), 300);
       }
-    }, 100);
+    }, 60);
 
     return () => clearInterval(typingInterval);
   }, [fullText]);
 
   useEffect(() => {
     if (step === 1) {
-      setTimeout(() => setStep(2), 1500);
+      setTimeout(() => setStep(2), 800);
     } else if (step === 2) {
-      setTimeout(() => setStep(3), 1500);
+      setTimeout(() => setStep(3), 800);
     } else if (step === 3) {
-      setTimeout(() => setStep(4), 1500);
+      setTimeout(() => setStep(4), 800);
     }
   }, [step]);
 
