@@ -10,7 +10,7 @@ export default function DashboardClient({ initialShows }: { initialShows: any[] 
 
   const handleLogout = async () => {
     await fetch("/api/auth", { method: "DELETE" });
-    router.push("/admin/login");
+    window.location.href = "/admin/login";
   };
 
   const saveShows = async (newShows: any[]) => {
@@ -24,7 +24,7 @@ export default function DashboardClient({ initialShows }: { initialShows: any[] 
       if (res.ok) {
         setShows(newShows);
       } else if (res.status === 401) {
-        router.push("/admin/login");
+        window.location.href = "/admin/login";
       } else {
         alert("Failed to save. Make sure your Vercel KV Database is linked and Vercel has finished deploying!");
       }
