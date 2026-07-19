@@ -5,7 +5,7 @@ import SocialDropdown from "@/components/SocialDropdown";
 
 export const metadata: Metadata = {
   title: "Lak Shade | Stand-Up Comic",
-  description: "Official website of Lak Shade, an ambitious stand-up comic learning to grow.",
+  description: "Welcome dumbasses.",
 };
 
 export default function RootLayout({
