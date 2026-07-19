@@ -72,7 +72,7 @@ export default function SocialDropdown() {
             Instagram
           </a>
           <a 
-            href="https://www.youtube.com/@lakshade718" 
+            href="https://www.youtube.com/@lakshade12" 
             target="_blank" 
             rel="noopener noreferrer"
             onClick={() => setIsOpen(false)}
