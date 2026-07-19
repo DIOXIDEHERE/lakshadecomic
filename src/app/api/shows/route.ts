@@ -2,8 +2,11 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { Redis } from '@upstash/redis';
 
-// Initialize Redis. It automatically picks up UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN.
-const redis = Redis.fromEnv();
+// Initialize Redis using the variables Vercel provides via the Upstash integration
+const redis = new Redis({
+  url: process.env.KV_REST_API_URL || '',
+  token: process.env.KV_REST_API_TOKEN || '',
+});
 
 export async function GET() {
   try {

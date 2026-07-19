@@ -7,7 +7,10 @@ export const dynamic = 'force-dynamic';
 
 async function getShows() {
   try {
-    const redis = Redis.fromEnv();
+    const redis = new Redis({
+      url: process.env.KV_REST_API_URL || '',
+      token: process.env.KV_REST_API_TOKEN || '',
+    });
     const shows = await redis.get('shows');
     return Array.isArray(shows) ? shows : [];
   } catch (e) {
