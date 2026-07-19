@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Link from "next/link";
+import SocialDropdown from "@/components/SocialDropdown";
 
 export const metadata: Metadata = {
   title: "Lak Shade | Stand-Up Comic",
@@ -21,9 +22,9 @@ export default function RootLayout({
               <span style={{ color: "var(--color-primary)" }}>Lak</span> Shade
             </Link>
             <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
-              <Link href="/" className="btn-outline" style={{ padding: "0.5rem 1rem", border: "none" }}>Home</Link>
-              <Link href="/shows" className="btn-outline" style={{ padding: "0.5rem 1rem", border: "none" }}>Upcoming Shows</Link>
-              <a href="https://www.instagram.com/lak.shade/" target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ padding: "0.5rem 1rem", border: "none" }}>Social</a>
+              <Link href="/" className="nav-link">Home</Link>
+              <Link href="/shows" className="nav-link">Upcoming Shows</Link>
+              <SocialDropdown />
             </div>
           </div>
         </nav>

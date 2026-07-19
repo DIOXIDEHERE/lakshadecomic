@@ -96,6 +96,22 @@ a {
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
+/* Nav Links */
+.nav-link {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  color: var(--color-text-muted);
+}
+
+.nav-link:hover {
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.2);
+}
+
 /* Forms */
 .input {
   width: 100%;
