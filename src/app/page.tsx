@@ -9,7 +9,7 @@ export default function Home() {
       
       <p style={{ fontSize: "1.5rem", color: "var(--color-text-muted)", maxWidth: "800px", margin: "0 auto 3rem auto", lineHeight: 1.6 }}>
         Ye website mummy ko mat dikhana. <br/>
-        Main sirf mic pakadta hoon... baaki jo hota hai bhagwan bharose.
+        Main sirf mic pakadta hoon... baaki bhagwan bharose.
       </p>
 
       <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap", justifyContent: "center" }}>
