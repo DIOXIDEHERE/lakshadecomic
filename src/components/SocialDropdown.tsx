@@ -82,6 +82,26 @@ export default function SocialDropdown() {
           >
             YouTube
           </a>
+          <a 
+            href="https://wa.me/919354717758" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            onClick={() => setIsOpen(false)}
+            style={{ padding: "0.75rem 1rem", borderRadius: "0.25rem", color: "var(--color-text)", textDecoration: "none", transition: "background 0.2s" }}
+            onMouseOver={(e) => e.currentTarget.style.background = "var(--color-surface-hover)"}
+            onMouseOut={(e) => e.currentTarget.style.background = "transparent"}
+          >
+            WhatsApp
+          </a>
+          <a 
+            href="tel:+919354717758" 
+            onClick={() => setIsOpen(false)}
+            style={{ padding: "0.75rem 1rem", borderRadius: "0.25rem", color: "var(--color-text)", textDecoration: "none", transition: "background 0.2s" }}
+            onMouseOver={(e) => e.currentTarget.style.background = "var(--color-surface-hover)"}
+            onMouseOut={(e) => e.currentTarget.style.background = "transparent"}
+          >
+            Call
+          </a>
         </div>
       )}
     </div>
