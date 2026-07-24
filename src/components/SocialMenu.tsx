@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
 const socials = [
-  { name: "Instagram", href: "https://instagram.com/lakshadecomic" },
-  { name: "YouTube", href: "https://youtube.com/@lakshadecomic" },
+  { name: "Instagram", href: "https://www.instagram.com/lak.shade/" },
+  { name: "YouTube", href: "https://www.youtube.com/@lakshade12/shorts" },
 ];
 
 export default function SocialMenu() {
