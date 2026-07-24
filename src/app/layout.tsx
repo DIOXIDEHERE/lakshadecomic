@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
-import SocialDropdown from "@/components/SocialDropdown";
+import Navigation from "@/components/Navigation";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
 
 export const metadata: Metadata = {
-  title: "Lak Shade | Stand-Up Comic",
-  description: "Welcome dumbasses.",
+  title: "Lak Shade",
+  description: "A cinematic exploration of comedy, coding, and life.",
 };
 
 export default function RootLayout({
@@ -14,26 +17,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${playfair.variable}`}>
       <body>
-        <nav style={{ padding: "1.5rem 0", borderBottom: "1px solid var(--color-border)" }}>
-          <div className="container" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <Link href="/" className="logo-hover" style={{ fontSize: "1.5rem", fontWeight: "bold", letterSpacing: "-0.05em", display: "inline-block" }}>
-              <span style={{ color: "var(--color-primary)" }}>Lak</span> Shade
-            </Link>
-            <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
-              <Link href="/" className="nav-link">Home</Link>
-              <Link href="/shows" className="nav-link">Upcoming Shows</Link>
-              <SocialDropdown />
-            </div>
-          </div>
-        </nav>
-        <main style={{ minHeight: "calc(100vh - 160px)", padding: "4rem 0" }}>
-          {children}
-        </main>
-        <footer style={{ padding: "2rem 0", borderTop: "1px solid var(--color-border)", textAlign: "center", color: "var(--color-text-muted)" }}>
-          <p>© {new Date().getFullYear()} Lak Shade. All rights reserved.</p>
-        </footer>
+        <Navigation />
+        {children}
       </body>
     </html>
   );
