@@ -16,6 +16,9 @@ export async function getCMSData(section: string, fallback: any = {}) {
   
   try {
     const data = await redis.get(`cms:${section}`);
+    if (data && typeof data === 'object') {
+      return { ...fallback, ...data };
+    }
     return data || fallback;
   } catch (error) {
     console.error(`Error fetching CMS data for ${section}:`, error);
