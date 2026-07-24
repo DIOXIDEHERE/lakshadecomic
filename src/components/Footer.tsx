@@ -11,9 +11,8 @@ export default function Footer() {
       marginTop: "auto"
     }}>
       <div style={{ display: "flex", gap: "var(--space-md)", fontSize: "var(--text-xs)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-        <a href="https://instagram.com/lakshadecomic" target="_blank" className="link-editorial">Instagram</a>
-        <a href="https://youtube.com/@lakshadecomic" target="_blank" className="link-editorial">YouTube</a>
-        <a href="mailto:hello@lakshade.com" className="link-editorial">Email</a>
+        <a href="https://www.instagram.com/lak.shade/" target="_blank" className="link-editorial">Instagram</a>
+        <a href="https://www.youtube.com/@lakshade12/shorts" target="_blank" className="link-editorial">YouTube</a>
       </div>
       
       <p style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)", fontFamily: "var(--font-playfair)", fontStyle: "italic", letterSpacing: "0.05em" }}>
