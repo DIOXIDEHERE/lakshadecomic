@@ -75,7 +75,7 @@ export async function POST(request: Request) {
     // 6. Send Email using Resend
     if (process.env.RESEND_API_KEY) {
       try {
-        await resend.emails.send({
+        const { data, error } = await resend.emails.send({
           from: 'Lak Shade Console <onboarding@resend.dev>', // Use verified domain later
           to: ADMIN_EMAIL,
           subject: 'Lak Shade Console Verification',
@@ -89,8 +89,13 @@ export async function POST(request: Request) {
             </div>
           `
         });
+
+        if (error) {
+          console.error("Resend API Error:", error);
+          return NextResponse.json({ error: error.message || 'Failed to send verification email' }, { status: 500 });
+        }
       } catch (emailError) {
-        console.error("Failed to send OTP email:", emailError);
+        console.error("Failed to execute Resend request:", emailError);
         return NextResponse.json({ error: 'Failed to send verification email' }, { status: 500 });
       }
     } else {
