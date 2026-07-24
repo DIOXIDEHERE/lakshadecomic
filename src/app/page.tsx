@@ -11,7 +11,8 @@ export default async function Home() {
     heroTitle2: "Just a story.",
     subtitle: "Comedy, code, and the spaces between.",
     ctaText: "Begin Chapter 1",
-    ctaLink: "/story"
+    ctaLink: "/story",
+    heroFontSize: 100
   });
   return (
     <div className="container" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", position: "relative" }}>
@@ -46,7 +47,12 @@ export default async function Home() {
           </p>
         </FadeIn>
 
-        <h1 style={{ fontSize: "var(--text-display)", marginBottom: "var(--space-lg)", marginLeft: "-0.05em", lineHeight: 1.1 }}>
+        <h1 style={{ 
+          fontSize: `calc(var(--text-display) * ${data.heroFontSize / 100})`, 
+          marginBottom: "var(--space-lg)", 
+          marginLeft: "-0.05em", 
+          lineHeight: 1.1 
+        }}>
           <LetterReveal text={data.heroTitle1} delay={0.4} />
           <br />
           <LetterReveal text={data.heroTitle2} delay={1.8} />
