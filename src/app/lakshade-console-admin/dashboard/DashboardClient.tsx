@@ -3,17 +3,15 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import HomeEditor from "./editors/HomeEditor";
-import MissionEditor from "./editors/MissionEditor";
+import StoryEditor from "./editors/StoryEditor";
+import GalleryEditor from "./editors/GalleryEditor";
 import ShowsEditor from "./editors/ShowsEditor";
 
 const sections = [
   { id: "home", label: "Home Page", icon: "🏠" },
-  { id: "mission", label: "Current Mission", icon: "🎯" },
+  { id: "story", label: "Story", icon: "📖" },
   { id: "shows", label: "Shows", icon: "📅" },
   { id: "gallery", label: "Gallery", icon: "🖼" },
-  { id: "journal", label: "Journal", icon: "📝" },
-  { id: "quotes", label: "Quotes", icon: "💬" },
-  { id: "settings", label: "Settings", icon: "🎨" },
 ];
 
 export default function DashboardClient() {
@@ -137,14 +135,9 @@ export default function DashboardClient() {
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
               {activeSection === "home" && <HomeEditor data={data} onChange={setData} />}
-              {activeSection === "mission" && <MissionEditor data={data} onChange={setData} />}
+              {activeSection === "story" && <StoryEditor data={data} onChange={setData} />}
               {activeSection === "shows" && <ShowsEditor data={data} onChange={setData} />}
-              {/* Fallback for unbuilt sections */}
-              {["gallery", "journal", "quotes", "settings"].includes(activeSection) && (
-                <div style={{ padding: "3rem", border: "1px dashed #333", borderRadius: "8px", textAlign: "center", color: "#666" }}>
-                  Editor module for {activeSection} is under construction.
-                </div>
-              )}
+              {activeSection === "gallery" && <GalleryEditor data={data} onChange={setData} />}
             </div>
           )}
         </div>

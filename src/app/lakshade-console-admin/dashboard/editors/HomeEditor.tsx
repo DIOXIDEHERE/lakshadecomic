@@ -9,7 +9,7 @@ export default function HomeEditor({ data, onChange }: { data: any, onChange: (d
         <label>Hero Title Line 1</label>
         <input 
           type="text" 
-          value={data?.heroTitle1 || "Not a success story."} 
+          value={data?.heroTitle1 ?? "Not a success story."} 
           onChange={(e) => handleChange("heroTitle1", e.target.value)} 
           style={inputStyle}
         />
@@ -19,7 +19,7 @@ export default function HomeEditor({ data, onChange }: { data: any, onChange: (d
         <label>Hero Title Line 2</label>
         <input 
           type="text" 
-          value={data?.heroTitle2 || "Just a story."} 
+          value={data?.heroTitle2 ?? "Just a story."} 
           onChange={(e) => handleChange("heroTitle2", e.target.value)} 
           style={inputStyle}
         />
@@ -29,7 +29,7 @@ export default function HomeEditor({ data, onChange }: { data: any, onChange: (d
         <label>Subtitle / Description</label>
         <input 
           type="text" 
-          value={data?.subtitle || "Comedy, code, and the spaces between."} 
+          value={data?.subtitle ?? "Comedy, code, and the spaces between."} 
           onChange={(e) => handleChange("subtitle", e.target.value)} 
           style={inputStyle}
         />
@@ -39,7 +39,7 @@ export default function HomeEditor({ data, onChange }: { data: any, onChange: (d
         <label>Button Text</label>
         <input 
           type="text" 
-          value={data?.ctaText || "Begin Chapter 1"} 
+          value={data?.ctaText ?? "Begin Chapter 1"} 
           onChange={(e) => handleChange("ctaText", e.target.value)} 
           style={inputStyle}
         />
@@ -49,7 +49,7 @@ export default function HomeEditor({ data, onChange }: { data: any, onChange: (d
         <label>Button Link</label>
         <input 
           type="text" 
-          value={data?.ctaLink || "/story"} 
+          value={data?.ctaLink ?? "/story"} 
           onChange={(e) => handleChange("ctaLink", e.target.value)} 
           style={inputStyle}
         />
