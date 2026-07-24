@@ -103,7 +103,7 @@ export default function DashboardClient() {
       </aside>
 
       {/* Main Content */}
-      <main style={{ flex: 1, overflowY: "auto", padding: "3rem", background: "#0a0a0a", position: "relative" }}>
+      <main style={{ flex: 1, overflowY: "auto", padding: "6rem 3rem 3rem 3rem", background: "#0a0a0a", position: "relative" }}>
         
         <div style={{ maxWidth: "800px", margin: "0 auto" }}>
           <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "3rem", borderBottom: "1px solid #222", paddingBottom: "1rem" }}>
