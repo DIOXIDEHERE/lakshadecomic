@@ -26,7 +26,7 @@ export default function GalleryEditor({ data, onChange }: { data: any, onChange:
     setUploading(true);
     try {
       // Diagnostic check for missing token in Vercel
-      const diagRes = await fetch('/api/upload');
+      const diagRes = await fetch('/api/upload', { cache: 'no-store' });
       const diagData = await diagRes.json();
       if (diagData.status === "missing_token") {
         alert("CRITICAL ERROR: The Vercel Blob API Token is missing from your deployment.\n\nYou must:\n1. Go to your Vercel Project -> Settings -> Environment Variables.\n2. Ensure BLOB_READ_WRITE_TOKEN exists.\n3. Go to Deployments and trigger a Redeploy.\n\nUpload will not work until this is done.");
