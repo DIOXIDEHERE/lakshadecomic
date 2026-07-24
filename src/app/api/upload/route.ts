@@ -1,35 +1,38 @@
-import { put } from '@vercel/blob';
+import { handleUpload, type HandleUploadBody } from '@vercel/blob/client';
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
 export async function POST(request: Request): Promise<NextResponse> {
+  const body = (await request.json()) as HandleUploadBody;
+
   try {
-    // 1. Authenticate (ensure user is logged in as admin)
-    const cookieStore = await cookies();
-    const token = cookieStore.get('auth_session')?.value || cookieStore.get('temp_auth_session')?.value;
-    if (!token) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const jsonResponse = await handleUpload({
+      body,
+      request,
+      onBeforeGenerateToken: async (pathname) => {
+        // Authenticate (ensure user is logged in as admin)
+        const cookieStore = await cookies();
+        const token = cookieStore.get('auth_session')?.value || cookieStore.get('temp_auth_session')?.value;
+        if (!token) {
+          throw new Error('Unauthorized');
+        }
 
-    const { searchParams } = new URL(request.url);
-    const filename = searchParams.get('filename');
-
-    if (!filename) {
-      return NextResponse.json({ error: 'Filename is required' }, { status: 400 });
-    }
-
-    if (!request.body) {
-       return NextResponse.json({ error: 'Request body is required' }, { status: 400 });
-    }
-
-    // 2. Upload to Vercel Blob
-    const blob = await put(filename, request.body, {
-      access: 'public',
+        return {
+          allowedContentTypes: ['image/jpeg', 'image/png', 'image/gif', 'video/mp4', 'video/webm'],
+          tokenPayload: JSON.stringify({}),
+        };
+      },
+      onUploadCompleted: async ({ blob, tokenPayload }) => {
+        console.log('Blob upload completed', blob.url);
+      },
     });
 
-    return NextResponse.json(blob);
+    return NextResponse.json(jsonResponse);
   } catch (error) {
     console.error("Upload error:", error);
-    return NextResponse.json({ error: 'Error uploading file' }, { status: 500 });
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 400 }
+    );
   }
 }

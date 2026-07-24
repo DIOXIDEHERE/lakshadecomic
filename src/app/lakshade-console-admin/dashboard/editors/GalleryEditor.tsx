@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { upload } from "@vercel/blob/client";
 
 export default function GalleryEditor({ data, onChange }: { data: any, onChange: (data: any) => void }) {
   const safeData = data || {};
@@ -24,21 +25,15 @@ export default function GalleryEditor({ data, onChange }: { data: any, onChange:
   const uploadFile = async (file: File) => {
     setUploading(true);
     try {
-      const response = await fetch(`/api/upload?filename=${file.name}`, {
-        method: 'POST',
-        body: file,
+      const blob = await upload(file.name, file, {
+        access: 'public',
+        handleUploadUrl: '/api/upload',
       });
-
-      if (!response.ok) {
-        throw new Error('Upload failed');
-      }
-
-      const blob = await response.json();
       // Add the new blob URL to the gallery
       onChange({ ...safeData, images: [...images, blob.url] });
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      alert("Upload failed. Make sure Vercel Blob is configured correctly in Vercel.");
+      alert(`Upload failed: ${error.message || "Make sure Vercel Blob is configured correctly in Vercel."}`);
     } finally {
       setUploading(false);
     }
