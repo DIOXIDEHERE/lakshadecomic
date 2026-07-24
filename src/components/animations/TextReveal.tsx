@@ -11,7 +11,7 @@ export default function TextReveal({
 }) {
   const words = text.split(" ");
 
-  const container = {
+  const container: import("framer-motion").Variants = {
     hidden: { opacity: 0 },
     visible: (i = 1) => ({
       opacity: 1,
@@ -19,7 +19,7 @@ export default function TextReveal({
     }),
   };
 
-  const child = {
+  const child: import("framer-motion").Variants = {
     visible: {
       opacity: 1,
       y: 0,
