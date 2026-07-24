@@ -24,12 +24,12 @@ export default function ShowsEditor({ data, onChange }: { data: any, onChange: (
   };
 
   const updateShow = (id: string, field: string, value: string) => {
-    const newShows = shows.map(s => s.id === id ? { ...s, [field]: value } : s);
+    const newShows = shows.map((s: any) => s.id === id ? { ...s, [field]: value } : s);
     handleShowsChange(newShows);
   };
 
   const deleteShow = (id: string) => {
-    handleShowsChange(shows.filter(s => s.id !== id));
+    handleShowsChange(shows.filter((s: any) => s.id !== id));
   };
 
   return (

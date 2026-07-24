@@ -1,8 +1,6 @@
-"use client";
-
-import { motion } from "framer-motion";
 import TextReveal from "@/components/animations/TextReveal";
 import FadeIn from "@/components/animations/FadeIn";
+import ProgressRing from "@/components/animations/ProgressRing";
 import { getCMSData } from "@/lib/cms";
 
 export const revalidate = 0;
@@ -15,10 +13,6 @@ export default async function Now() {
     currentArc: "Writing 15 minutes of undeniable new material.",
     recentAchievement: "Crushed the late-night spot at The Comedy Club."
   });
-
-  const progress = data.progress;
-  const circumference = 2 * Math.PI * 40;
-  const strokeDashoffset = circumference - (progress / 100) * circumference;
 
   return (
     <div className="container theme-thoughtful" style={{ minHeight: "100vh", paddingTop: "var(--space-2xl)", paddingBottom: "var(--space-2xl)", display: "flex", alignItems: "center" }}>
@@ -37,23 +31,7 @@ export default async function Now() {
           </div>
 
           <FadeIn delay={0.5}>
-            <div style={{ position: "relative", width: "100px", height: "100px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <svg width="100" height="100" viewBox="0 0 100 100" style={{ transform: "rotate(-90deg)" }}>
-                <circle cx="50" cy="50" r="40" fill="transparent" stroke="var(--color-border)" strokeWidth="2" />
-                <motion.circle 
-                  cx="50" cy="50" r="40" fill="transparent" 
-                  stroke="var(--color-warm-white)" strokeWidth="2"
-                  strokeDasharray={circumference}
-                  initial={{ strokeDashoffset: circumference }}
-                  animate={{ strokeDashoffset }}
-                  transition={{ duration: 1.5, delay: 1, ease: "easeOut" }}
-                  strokeLinecap="round"
-                />
-              </svg>
-              <div style={{ position: "absolute", fontFamily: "var(--font-inter)", fontSize: "var(--text-lg)", fontWeight: "bold" }}>
-                {progress}%
-              </div>
-            </div>
+            <ProgressRing progress={data.progress} />
           </FadeIn>
         </div>
 
@@ -81,28 +59,6 @@ export default async function Now() {
         </div>
 
       </main>
-
-      <style jsx>{`
-        .mission-block {
-          display: flex;
-          flex-direction: column;
-          gap: 0.25rem;
-          padding: var(--space-sm) 0;
-        }
-        .mission-label {
-          font-family: var(--font-inter);
-          font-size: var(--text-xs);
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          color: var(--color-text-muted);
-        }
-        .mission-value {
-          font-family: var(--font-playfair);
-          font-size: var(--text-xl);
-          color: var(--color-warm-white);
-          margin: 0;
-        }
-      `}</style>
     </div>
   );
 }

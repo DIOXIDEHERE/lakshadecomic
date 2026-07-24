@@ -64,36 +64,6 @@ export default async function Home() {
         </FadeIn>
 
       </main>
-
-      <style jsx>{`
-        @keyframes gradientMove {
-          0% { background-position: 0% 50%; opacity: 0.5; }
-          50% { background-position: 100% 50%; opacity: 0.8; }
-          100% { background-position: 0% 50%; opacity: 0.5; }
-        }
-        .bg-gradient-subtle {
-          background: radial-gradient(circle at 50% 50%, rgba(217, 200, 180, 0.05), transparent 60%);
-          background-size: 200% 200%;
-        }
-        .particles-container {
-          position: absolute;
-          top: 0; left: 0; width: 100%; height: 100%;
-          overflow: hidden; pointer-events: none;
-        }
-        .particle {
-          position: absolute;
-          width: 3px; height: 3px;
-          background: rgba(255,255,255,0.2);
-          border-radius: 50%;
-          animation: float 15s linear infinite;
-        }
-        @keyframes float {
-          0% { transform: translateY(0) scale(1); opacity: 0; }
-          10% { opacity: 1; }
-          90% { opacity: 1; }
-          100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
-        }
-      `}</style>
     </div>
   );
 }
