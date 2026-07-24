@@ -2,154 +2,115 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
-  { href: "/", label: "00 / Prologue" },
-  { href: "/story", label: "01 / Story" },
-  { href: "/now", label: "02 / Current Mission" },
-  { href: "/shows", label: "03 / Comedy" },
-  { href: "/progress", label: "04 / Progress" },
-  { href: "/gallery", label: "05 / Gallery" },
-  { href: "/notebook", label: "06 / Notebook" },
-  { href: "/blueprints", label: "07 / Blueprints" },
-  { href: "/firsts", label: "08 / Wall of Firsts" },
-  { href: "/dreams", label: "09 / Dreams" },
-  { href: "/archive", label: "10 / Archive" }
+  { href: "/", label: "Home" },
+  { href: "/story", label: "Story" },
+  { href: "/shows", label: "Shows" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/journal", label: "Journal" },
+  { href: "#contact", label: "Contact" },
 ];
 
 export default function Navigation() {
-  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
-  // Lock scroll when menu is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-  }, [isOpen]);
+    // Reveal nav after hero loads
+    const timer = setTimeout(() => setIsVisible(true), 1500);
+
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(timer);
+    };
+  }, []);
 
   return (
-    <>
-      <button
-        onClick={() => setIsOpen(true)}
-        className="nav-menu-btn"
-        style={{
-          position: "fixed",
-          top: "2rem",
-          right: "2rem",
-          zIndex: 50,
-          mixBlendMode: "difference",
-          background: "none",
-          border: "none",
-          cursor: "pointer",
-          fontFamily: "var(--font-inter)",
-          fontSize: "var(--text-sm)",
-          letterSpacing: "0.1em",
-          textTransform: "uppercase",
-          color: "var(--color-warm-white)",
-          transition: "opacity 0.3s ease"
-        }}
-      >
-        Menu
-      </button>
+    <AnimatePresence>
+      {isVisible && (
+        <motion.nav
+          initial={{ y: -100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, ease: [0.4, 0, 0.2, 1] }}
+          style={{
+            position: "fixed",
+            top: isScrolled ? "1rem" : "2rem",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 100,
+            display: "flex",
+            alignItems: "center",
+            gap: "2rem",
+            padding: isScrolled ? "0.5rem 1.5rem" : "1rem 2.5rem",
+            background: "rgba(255, 255, 255, 0.03)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            border: "1px solid rgba(255, 255, 255, 0.05)",
+            borderRadius: "100px",
+            transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+            boxShadow: isScrolled ? "0 10px 30px rgba(0,0,0,0.2)" : "none",
+          }}
+          className="floating-nav"
+        >
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, clipPath: "circle(0% at 100% 0%)" }}
-            animate={{ opacity: 1, clipPath: "circle(150% at 100% 0%)" }}
-            exit={{ opacity: 0, clipPath: "circle(0% at 100% 0%)" }}
-            transition={{ duration: 1, ease: [0.4, 0, 0.2, 1] }}
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              width: "100vw",
-              height: "100vh",
-              backgroundColor: "var(--color-charcoal)",
-              zIndex: 100,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              padding: "var(--space-xl)",
-            }}
-          >
-            <button
-              onClick={() => setIsOpen(false)}
-              style={{
-                position: "absolute",
-                top: "2rem",
-                right: "2rem",
-                background: "none",
-                border: "none",
-                color: "var(--color-text)",
-                cursor: "pointer",
-                fontFamily: "var(--font-inter)",
-                fontSize: "var(--text-sm)",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-              }}
-            >
-              Close
-            </button>
-
-            <nav style={{ display: "flex", flexDirection: "column", gap: "var(--space-md)", alignItems: "flex-start" }}>
-              {navLinks.map((link, index) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 + index * 0.05, duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-                >
-                  <Link 
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`nav-link-premium ${isActive ? "active" : ""}`}
+                style={{
+                  position: "relative",
+                  fontFamily: "var(--font-inter)",
+                  fontSize: "var(--text-sm)",
+                  color: isActive ? "var(--color-warm-white)" : "var(--color-text-muted)",
+                  textDecoration: "none",
+                  transition: "all 0.3s ease",
+                  letterSpacing: "0.05em",
+                }}
+              >
+                {link.label}
+                {isActive && (
+                  <motion.div
+                    layoutId="nav-underline"
                     style={{
-                      fontFamily: "var(--font-playfair)",
-                      fontSize: "var(--text-2xl)",
-                      color: "var(--color-text)",
-                      textDecoration: "none",
-                      position: "relative",
-                      display: "inline-block",
-                      transition: "opacity 0.4s ease",
-                    }}
-                    className="nav-item-editorial"
-                  >
-                    <span style={{ 
-                      fontSize: "var(--text-sm)", 
-                      fontFamily: "var(--font-inter)", 
-                      color: "var(--color-text-muted)",
                       position: "absolute",
-                      left: "-3rem",
-                      top: "50%",
-                      transform: "translateY(-50%)",
-                      opacity: 0,
-                      transition: "all 0.4s ease"
-                    }} className="nav-index">
-                      {link.label.split('/')[0].trim()}
-                    </span>
-                    {link.label.split('/')[1].trim()}
-                  </Link>
-                </motion.div>
-              ))}
-            </nav>
-            <style jsx>{`
-              .nav-item-editorial:hover {
-                opacity: 0.7;
-              }
-              .nav-item-editorial:hover .nav-index {
-                opacity: 1;
-                left: "-2rem";
-              }
-              .nav-menu-btn:hover {
-                opacity: 0.7;
-              }
-            `}</style>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+                      bottom: "-4px",
+                      left: 0,
+                      right: 0,
+                      height: "1px",
+                      background: "var(--color-warm-white)",
+                      boxShadow: "0 0 8px rgba(246, 244, 239, 0.5)",
+                    }}
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+              </Link>
+            );
+          })}
+
+          <style jsx>{`
+            .nav-link-premium {
+              display: inline-block;
+            }
+            .nav-link-premium:hover {
+              color: var(--color-warm-white) !important;
+              letter-spacing: 0.1em !important;
+              text-shadow: 0 0 10px rgba(255,255,255,0.3);
+            }
+          `}</style>
+        </motion.nav>
+      )}
+    </AnimatePresence>
   );
 }
