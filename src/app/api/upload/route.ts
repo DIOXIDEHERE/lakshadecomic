@@ -18,7 +18,11 @@ export async function POST(request: Request): Promise<NextResponse> {
         }
 
         return {
-          allowedContentTypes: ['image/jpeg', 'image/png', 'image/gif', 'video/mp4', 'video/webm'],
+          allowedContentTypes: [
+            'image/jpeg', 'image/png', 'image/gif', 'image/webp', 
+            'image/svg+xml', 'image/avif', 'image/bmp', 'image/tiff', 'image/heic', 
+            'video/mp4'
+          ],
           tokenPayload: JSON.stringify({}),
         };
       },
