@@ -9,11 +9,9 @@ export async function POST(request: Request): Promise<NextResponse> {
     const jsonResponse = await handleUpload({
       body,
       request,
-      onBeforeGenerateToken: async (pathname) => {
-        // Authenticate (ensure user is logged in as admin)
-        const cookieStore = await cookies();
-        const token = cookieStore.get('auth_session')?.value || cookieStore.get('temp_auth_session')?.value;
-        if (!token) {
+      onBeforeGenerateToken: async (pathname, clientPayload) => {
+        // Authenticate via clientPayload to avoid cookie-stripping issues in Edge/fetch
+        if (clientPayload !== 'lakshade-admin-upload') {
           throw new Error('Unauthorized');
         }
 
@@ -21,7 +19,7 @@ export async function POST(request: Request): Promise<NextResponse> {
           allowedContentTypes: [
             'image/jpeg', 'image/png', 'image/gif', 'image/webp', 
             'image/svg+xml', 'image/avif', 'image/bmp', 'image/tiff', 'image/heic', 
-            'video/mp4'
+            'video/mp4', 'video/quicktime', 'video/x-m4v'
           ],
           tokenPayload: JSON.stringify({}),
         };

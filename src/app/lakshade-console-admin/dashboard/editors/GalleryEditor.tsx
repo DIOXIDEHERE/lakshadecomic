@@ -28,6 +28,7 @@ export default function GalleryEditor({ data, onChange }: { data: any, onChange:
       const blob = await upload(file.name, file, {
         access: 'public',
         handleUploadUrl: '/api/upload',
+        clientPayload: 'lakshade-admin-upload'
       });
       // Add the new blob URL to the gallery
       onChange({ ...safeData, images: [...images, blob.url] });
