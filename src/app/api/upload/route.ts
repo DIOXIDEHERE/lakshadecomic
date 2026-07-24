@@ -2,6 +2,8 @@ import { handleUpload, type HandleUploadBody } from '@vercel/blob/client';
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   if (!process.env.BLOB_READ_WRITE_TOKEN) {
     return NextResponse.json({ status: "missing_token" });
