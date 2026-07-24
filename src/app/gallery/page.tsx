@@ -7,11 +7,10 @@ import FadeIn from "@/components/animations/FadeIn";
 
 // Mock data
 const mockImages = [
-  "https://images.unsplash.com/photo-1585699324551-f6c309eedeca?auto=format&fit=crop&q=80&w=800",
-  "https://images.unsplash.com/photo-1517282009859-f000ec3b26fe?auto=format&fit=crop&q=80&w=800",
-  "https://images.unsplash.com/photo-1525362081669-2b476bb628c3?auto=format&fit=crop&q=80&w=800",
-  "https://images.unsplash.com/photo-1540656689874-95cb7310d65b?auto=format&fit=crop&q=80&w=800",
-  "https://images.unsplash.com/photo-1628191140046-24e037cc5e2e?auto=format&fit=crop&q=80&w=800",
+  "/1.jpg",
+  "/2.jpg",
+  "/3.jpg",
+  "/4.jpg",
 ];
 
 export default function Gallery() {

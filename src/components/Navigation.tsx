@@ -11,7 +11,6 @@ const navLinks = [
   { href: "/shows", label: "Shows" },
   { href: "/gallery", label: "Gallery" },
   { href: "/journal", label: "Journal" },
-  { href: "#contact", label: "Contact" },
 ];
 
 export default function Navigation() {
