@@ -10,7 +10,6 @@ const navLinks = [
   { href: "/story", label: "Story" },
   { href: "/shows", label: "Shows" },
   { href: "/gallery", label: "Gallery" },
-  { href: "/journal", label: "Journal" },
 ];
 
 export default function Navigation() {
