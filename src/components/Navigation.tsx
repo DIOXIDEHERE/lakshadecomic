@@ -34,8 +34,13 @@ export default function Navigation() {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed top-8 right-8 z-50 text-warm-white mix-blend-difference hover:opacity-70 transition-opacity"
+        className="nav-menu-btn"
         style={{
+          position: "fixed",
+          top: "2rem",
+          right: "2rem",
+          zIndex: 50,
+          mixBlendMode: "difference",
           background: "none",
           border: "none",
           cursor: "pointer",
@@ -43,6 +48,8 @@ export default function Navigation() {
           fontSize: "var(--text-sm)",
           letterSpacing: "0.1em",
           textTransform: "uppercase",
+          color: "var(--color-warm-white)",
+          transition: "opacity 0.3s ease"
         }}
       >
         Menu
@@ -135,6 +142,9 @@ export default function Navigation() {
               .nav-item-editorial:hover .nav-index {
                 opacity: 1;
                 left: "-2rem";
+              }
+              .nav-menu-btn:hover {
+                opacity: 0.7;
               }
             `}</style>
           </motion.div>
