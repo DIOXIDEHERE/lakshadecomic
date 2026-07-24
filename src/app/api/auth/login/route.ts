@@ -15,7 +15,7 @@ const resend = new Resend(process.env.RESEND_API_KEY || 're_dummy_key');
 // Get credentials from env or fallback to original hardcoded ones
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'highlighter';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'pencilcase7878';
-const ADMIN_EMAIL = 'dioxidehere@gmail.com';
+const ADMIN_EMAIL = 'vashistl718@gmail.com';
 
 export async function POST(request: Request) {
   try {
