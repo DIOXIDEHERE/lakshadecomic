@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import FadeIn from "@/components/animations/FadeIn";
 
+const isVideo = (url: string) => url.toLowerCase().endsWith('.mp4') || url.toLowerCase().endsWith('.webm');
+
 export default function GalleryClient({ images }: { images: string[] }) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
@@ -35,8 +37,12 @@ export default function GalleryClient({ images }: { images: string[] }) {
               className="gallery-item"
               onClick={() => setLightboxIndex(index)}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={src} alt={`Gallery image ${index + 1}`} loading="lazy" />
+              {isVideo(src) ? (
+                <video src={src} autoPlay loop muted playsInline style={{ width: "100%", display: "block" }} />
+              ) : (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img src={src} alt={`Gallery item ${index + 1}`} loading="lazy" />
+              )}
             </div>
           </FadeIn>
         ))}
@@ -58,17 +64,21 @@ export default function GalleryClient({ images }: { images: string[] }) {
             }}
             onClick={() => setLightboxIndex(null)}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <motion.img 
+            <motion.div
               key={lightboxIndex}
-              src={images[lightboxIndex]} 
-              alt="Lightbox view"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, type: "spring", damping: 20 }}
-              style={{ maxHeight: "85vh", maxWidth: "90vw", objectFit: "contain", borderRadius: "4px", boxShadow: "0 20px 50px rgba(0,0,0,0.5)" }}
+              style={{ maxHeight: "85vh", maxWidth: "90vw", borderRadius: "4px", boxShadow: "0 20px 50px rgba(0,0,0,0.5)", overflow: "hidden" }}
               onClick={(e) => e.stopPropagation()} 
-            />
+            >
+              {isVideo(images[lightboxIndex]) ? (
+                <video src={images[lightboxIndex]} autoPlay loop controls style={{ maxHeight: "85vh", maxWidth: "90vw", objectFit: "contain" }} />
+              ) : (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img src={images[lightboxIndex]} alt="Lightbox view" style={{ maxHeight: "85vh", maxWidth: "90vw", objectFit: "contain" }} />
+              )}
+            </motion.div>
             
             <button 
               className="lightbox-nav lightbox-prev"
@@ -98,13 +108,13 @@ export default function GalleryClient({ images }: { images: string[] }) {
           cursor: zoom-in;
           position: relative;
         }
-        .gallery-item img {
+        .gallery-item img, .gallery-item video {
           width: 100%;
           display: block;
           filter: grayscale(100%);
           transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), filter 0.8s ease;
         }
-        .gallery-item:hover img {
+        .gallery-item:hover img, .gallery-item:hover video {
           transform: scale(1.05);
           filter: grayscale(0%);
         }
