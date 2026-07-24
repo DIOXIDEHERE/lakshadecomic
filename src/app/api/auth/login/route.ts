@@ -55,7 +55,7 @@ export async function POST(request: Request) {
     if (otpRequests === 1) {
       await redis.expire(hourlyLimitKey, 60 * 60); // 1 hour
     }
-    if (otpRequests > 5) {
+    if (otpRequests > 50) {
       return NextResponse.json({ error: 'Maximum OTP requests exceeded. Try again in an hour.' }, { status: 429 });
     }
 
