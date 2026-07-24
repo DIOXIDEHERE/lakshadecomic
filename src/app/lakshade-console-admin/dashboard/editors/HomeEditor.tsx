@@ -26,13 +26,25 @@ export default function HomeEditor({ data, onChange }: { data: any, onChange: (d
       </div>
 
       <div className="input-group">
-        <label>Hero Font Size ({data?.heroFontSize ?? 100}%)</label>
+        <label>Hero Title 1 Font Size ({data?.heroFontSize1 ?? 100}%)</label>
         <input 
           type="range" 
           min="40" 
           max="150" 
-          value={data?.heroFontSize ?? 100} 
-          onChange={(e) => handleChange("heroFontSize", e.target.value)} 
+          value={data?.heroFontSize1 ?? 100} 
+          onChange={(e) => handleChange("heroFontSize1", e.target.value)} 
+          style={{ width: "100%", marginTop: "0.5rem" }}
+        />
+      </div>
+
+      <div className="input-group">
+        <label>Hero Title 2 Font Size ({data?.heroFontSize2 ?? 100}%)</label>
+        <input 
+          type="range" 
+          min="40" 
+          max="150" 
+          value={data?.heroFontSize2 ?? 100} 
+          onChange={(e) => handleChange("heroFontSize2", e.target.value)} 
           style={{ width: "100%", marginTop: "0.5rem" }}
         />
       </div>

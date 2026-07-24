@@ -12,7 +12,8 @@ export default async function Home() {
     subtitle: "Comedy, code, and the spaces between.",
     ctaText: "Begin Chapter 1",
     ctaLink: "/story",
-    heroFontSize: 100
+    heroFontSize1: 100,
+    heroFontSize2: 100
   });
   return (
     <div className="container" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", position: "relative" }}>
@@ -48,14 +49,16 @@ export default async function Home() {
         </FadeIn>
 
         <h1 style={{ 
-          fontSize: `calc(var(--text-display) * ${data.heroFontSize / 100})`, 
           marginBottom: "var(--space-lg)", 
           marginLeft: "-0.05em", 
           lineHeight: 1.1 
         }}>
-          <LetterReveal text={data.heroTitle1} delay={0.4} />
-          <br />
-          <LetterReveal text={data.heroTitle2} delay={1.8} />
+          <span style={{ display: "block", fontSize: `calc(var(--text-display) * ${(data.heroFontSize1 ?? 100) / 100})` }}>
+            <LetterReveal text={data.heroTitle1} delay={0.4} />
+          </span>
+          <span style={{ display: "block", fontSize: `calc(var(--text-display) * ${(data.heroFontSize2 ?? 100) / 100})` }}>
+            <LetterReveal text={data.heroTitle2} delay={1.8} />
+          </span>
         </h1>
 
         <FadeIn delay={3.5} duration={1.5} yOffset={20}>
